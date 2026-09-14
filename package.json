@@ -14,10 +14,15 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@lovable.dev/vite-tanstack-config": "^2.21.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@tanstack/react-start": "^1.168.50",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.2",
+    "tailwindcss": "^4.3.3",
     "typescript": "^5.5.4",
-    "vite": "^5.4.10"
+    "vite": "^7.0.0",
+    "vite-tsconfig-paths": "^6.1.1"
   }
 }
