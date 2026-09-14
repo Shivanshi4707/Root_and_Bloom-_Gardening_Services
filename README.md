@@ -9,6 +9,8 @@ Root & Bloom is a digital gardening ecosystem that brings **professional gardeni
 Instead of managing garden maintenance, landscaping requirements, and gardening purchases through different places, Root & Bloom connects them into one seamless digital experience.
 
 🌱 **One Platform. One Account. One Garden Journey.**
+
+Website Link:
 https://ai.studio/apps/563d6876-d918-4f31-9c5a-ff207e4cf586
 ---
 
