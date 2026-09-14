@@ -1,0 +1,8 @@
+{
+  "name": "Root & Bloom",
+  "description": "Modern hybrid gardening services, plant quick-commerce, customer accounts, and dark-store manager operations terminal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
