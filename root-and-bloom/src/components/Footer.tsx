@@ -1,9 +1,9 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { Leaf, Shield, Truck, Sparkles, Lock, ExternalLink } from 'lucide-react';
+import { Leaf, Shield, Truck, Sparkles, ExternalLink } from 'lucide-react';
 
 export const Footer: React.FC = () => {
-  const { setPage, requestManagerAccess, openCustomerAuth, currentCustomer } = useApp();
+  const { setPage, openCustomerAuth, currentCustomer } = useApp();
 
   return (
     <>
@@ -278,18 +278,6 @@ export const Footer: React.FC = () => {
               <ExternalLink className="w-2.5 h-2.5 opacity-60" />
             </a>
 
-            <span className="text-[#2D503C]">•</span>
-
-            {/* Staff Operations Portal Access */}
-            <button
-              id="footer-staff-login-btn"
-              onClick={requestManagerAccess}
-              className="text-[#8FE388] hover:text-white hover:underline transition-colors flex items-center gap-1 font-medium"
-              title="Staff Login & Dark-Store Hub Access"
-            >
-              <Lock className="w-3 h-3" />
-              <span>Staff Portal Login</span>
-            </button>
           </div>
         </div>
       </footer>

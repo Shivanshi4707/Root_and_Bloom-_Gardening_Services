@@ -65,12 +65,15 @@ export const BookingModal: React.FC = () => {
       serviceName: currentService.name,
       customerName,
       customerPhone,
+      customerEmail: currentCustomer?.email || '',
       address,
+      propertyType: gardenSize === 'Balcony' ? 'Apartment Balcony' : gardenSize === 'Terrace' ? 'Terrace Garden' : gardenSize === 'Lawn' ? 'Independent Villa' : 'Independent Villa',
+      gardenAreaSqFt: gardenSize === 'Balcony' ? 120 : gardenSize === 'Terrace' ? 450 : gardenSize === 'Lawn' ? 1200 : 2500,
+      frequency: 'one-time',
       scheduledDate,
       scheduledTime,
-      gardenSize,
       notes,
-      totalCost: currentService.startingPrice,
+      estimatedPrice: currentService.startingPrice,
     });
     setBookingRef(newBooking.id);
     setIsSuccess(true);

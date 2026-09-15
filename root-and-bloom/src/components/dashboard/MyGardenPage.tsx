@@ -506,12 +506,12 @@ export const MyGardenPage: React.FC = () => {
                         </span>
                       </div>
                       <span className="text-xs text-[#637C6E]">
-                        Reference: {booking.id} • {booking.gardenSize} Plan
+                        Reference: {booking.id} • {booking.propertyType} Plan
                       </span>
                     </div>
 
                     <div className="text-right">
-                      <span className="font-serif font-bold text-lg text-[#142E20]">₹{booking.totalCost}</span>
+                      <span className="font-serif font-bold text-lg text-[#142E20]">₹{booking.estimatedPrice}</span>
                       <span className="text-[11px] text-[#2A5C43] block font-medium">Pay after service</span>
                     </div>
                   </div>

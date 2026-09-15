@@ -13,11 +13,9 @@ import {
   Flower2,
   Calendar,
   LayoutDashboard,
-  ShieldCheck,
   User,
 } from 'lucide-react';
 import { CustomerAuthModal } from './auth/CustomerAuthModal';
-import { ManagerAuthModal } from './admin/ManagerAuthModal';
 
 export const Navbar: React.FC = () => {
   const {
@@ -37,10 +35,6 @@ export const Navbar: React.FC = () => {
     customerLogout,
     isCustomerAuthModalOpen,
     setIsCustomerAuthModalOpen,
-    currentManager,
-    isManagerAuthModalOpen,
-    setIsManagerAuthModalOpen,
-    requestManagerAccess,
   } = useApp();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -137,18 +131,6 @@ export const Navbar: React.FC = () => {
                 </div>
               )}
 
-              <span className="text-white/20 hidden sm:inline">|</span>
-
-              {/* Staff Operations Access */}
-              <button
-                id="nav-staff-login-btn"
-                onClick={requestManagerAccess}
-                className="hidden sm:flex items-center gap-1 text-[11px] text-[#A7F3D0]/80 hover:text-[#A7F3D0] transition-colors"
-                title="Staff Operations & Dark-Store Hub Terminal"
-              >
-                <ShieldCheck className="w-3 h-3 text-[#D27D46]" />
-                <span>{currentManager ? `Ops (${currentManager.name.split(' ')[0]})` : 'Staff Hub'}</span>
-              </button>
             </div>
           </div>
         </div>
@@ -334,23 +316,6 @@ export const Navbar: React.FC = () => {
                   </div>
                 )}
 
-                {/* Staff Portal Link */}
-                <button
-                  id="mobile-staff-portal-btn"
-                  onClick={() => {
-                    requestManagerAccess();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="w-full text-left px-4 py-2 rounded-xl text-xs font-medium text-[#5A7363] hover:text-[#1A3828] flex items-center justify-between"
-                >
-                  <span className="flex items-center gap-2">
-                    <ShieldCheck className="w-3.5 h-3.5 text-[#D27D46]" />
-                    <span>Staff Operations Hub</span>
-                  </span>
-                  <span className="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.2 rounded-sm font-semibold">
-                    Restricted
-                  </span>
-                </button>
               </div>
             </div>
           </div>
@@ -361,12 +326,6 @@ export const Navbar: React.FC = () => {
       <CustomerAuthModal
         isOpen={isCustomerAuthModalOpen}
         onClose={() => setIsCustomerAuthModalOpen(false)}
-      />
-
-      {/* Staff Operations Terminal Login Modal */}
-      <ManagerAuthModal
-        isOpen={isManagerAuthModalOpen}
-        onClose={() => setIsManagerAuthModalOpen(false)}
       />
 
       {/* Location Modal */}

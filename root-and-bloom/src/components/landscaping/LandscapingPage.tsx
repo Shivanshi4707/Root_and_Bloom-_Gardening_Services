@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 export const LandscapingPage: React.FC = () => {
-  const { submitLandscapingQuote, setPage } = useApp();
+  const { submitLandscapingQuote, setPage, currentCustomer } = useApp();
 
   const [customerName, setCustomerName] = useState('Vikramaditya Singhania');
   const [phone, setPhone] = useState('+91 98200 44123');
@@ -31,13 +31,14 @@ export const LandscapingPage: React.FC = () => {
     e.preventDefault();
     submitLandscapingQuote({
       customerName,
-      phone,
+      customerPhone: phone,
+      customerEmail: currentCustomer?.email || '',
       location,
-      spaceType,
+      propertyType: spaceType,
       gardenAreaSqFt: Number(gardenAreaSqFt),
       preferredStyle,
       budgetRange,
-      notes,
+      requirements: notes,
     });
     setIsSubmitted(true);
   };

@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 import "dotenv/config";
 
 const PORT = Number(process.env.BACKEND_PORT || 3001);
+const EDITOR_INVITE_CODE = process.env.EDITOR_INVITE_CODE?.trim();
 
 function hashPassword(password: string, salt: string): string {
   return crypto.pbkdf2Sync(password, salt, 1000, 64, "sha512").toString("hex");
@@ -58,6 +59,19 @@ function sanitizeCustomer(cust: StoredCustomer) {
 function sanitizeManager(mgr: StoredManager) {
   const { passwordHash, salt, ...safe } = mgr;
   return safe;
+}
+
+function requireManager(req: express.Request, res: express.Response, next: express.NextFunction) {
+  const authHeader = req.headers.authorization || "";
+  const token = authHeader.replace("Bearer ", "").trim();
+  const email = activeManagerSessions.get(token);
+
+  if (!email || !managersStore.has(email)) {
+    return res.status(401).json({ error: "Editor authorization required." });
+  }
+
+  res.locals.managerEmail = email;
+  return next();
 }
 
 const ananyaSalt = generateSalt();
@@ -436,9 +450,12 @@ app.post("/api/auth/manager/register", (req, res) => {
     if (!name || !email || !password) {
       return res.status(400).json({ error: "All staff registration fields are required." });
     }
+    if (!EDITOR_INVITE_CODE) {
+      return res.status(503).json({ error: "Editor registration is disabled. Configure EDITOR_INVITE_CODE on the backend." });
+    }
     const cleanCode = (staffPasscode || "").trim();
-    if (cleanCode !== "BLOOM2026" && cleanCode !== "ROOTADMIN") {
-      return res.status(403).json({ error: "Invalid Central Ops Verification Passcode." });
+    if (cleanCode !== EDITOR_INVITE_CODE) {
+      return res.status(403).json({ error: "Invalid editor invitation code." });
     }
     const cleanEmail = email.trim().toLowerCase();
     if (managersStore.has(cleanEmail)) {
@@ -468,27 +485,13 @@ app.post("/api/auth/manager/register", (req, res) => {
   }
 });
 
-app.get("/api/auth/manager/verify", (req, res) => {
-  const authHeader = req.headers.authorization || "";
-  const token = authHeader.replace("Bearer ", "").trim();
-  const email = activeManagerSessions.get(token);
-
-  if (!email || !managersStore.has(email)) {
-    return res.status(401).json({ error: "Invalid or expired manager session." });
-  }
-
-  const manager = managersStore.get(email)!;
-  return res.json({ success: true, manager: { ...sanitizeManager(manager), token } });
+app.get("/api/auth/manager/verify", requireManager, (req, res) => {
+  const token = (req.headers.authorization || "").replace("Bearer ", "").trim();
+  const manager = managersStore.get(res.locals.managerEmail);
+  return res.json({ success: true, manager: { ...sanitizeManager(manager!), token } });
 });
 
-app.get("/api/manager/customers", (req, res) => {
-  const authHeader = req.headers.authorization || "";
-  const token = authHeader.replace("Bearer ", "").trim();
-
-  if (!token || !activeManagerSessions.has(token)) {
-    return res.status(403).json({ error: "Access Denied. Manager authorization token required to view customer records." });
-  }
-
+app.get("/api/manager/customers", requireManager, (_req, res) => {
   const customersList = Array.from(customersStore.values()).map((c, index) => ({
     id: c.id,
     name: c.name,

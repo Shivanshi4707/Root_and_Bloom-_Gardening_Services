@@ -73,24 +73,16 @@ const AppShell: React.FC = () => {
     setIsManagerAuthModalOpen,
   } = useApp();
 
-  // Listen to URL hash or query parameters (e.g. #manager, #admin, ?role=manager)
+  // The editor portal is intentionally reachable only through its direct route.
   React.useEffect(() => {
     const handleUrlRole = () => {
-      const hash = window.location.hash.toLowerCase();
-      const params = new URLSearchParams(window.location.search);
-      if (
-        hash === '#manager' ||
-        hash === '#admin' ||
-        hash === '#portal' ||
-        params.get('role') === 'manager' ||
-        params.get('view') === 'manager'
-      ) {
+      if (window.location.pathname === '/editor' || window.location.pathname === '/editor/') {
         setUserRole('manager');
       }
     };
     handleUrlRole();
-    window.addEventListener('hashchange', handleUrlRole);
-    return () => window.removeEventListener('hashchange', handleUrlRole);
+    window.addEventListener('popstate', handleUrlRole);
+    return () => window.removeEventListener('popstate', handleUrlRole);
   }, [setUserRole]);
 
   // Route Protection: If Manager Role is active but not authenticated, enforce login

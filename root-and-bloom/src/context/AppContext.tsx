@@ -798,26 +798,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       showToast('Manager Access Granted 🛡️', `Connected to ${data.manager.hub}`);
       return { success: true };
     } catch {
-      // Fallback
-      if (email.includes('manager') || email.includes('admin')) {
-        const mgr: ManagerUser = {
-          id: 'mgr-1',
-          name: 'Priya Nair',
-          email,
-          hub: hub || 'Indiranagar Central Hub #01 (Bengaluru)',
-          role: 'Senior Operations & Logistics Lead',
-          loginTime: '08:30 AM IST',
-          staffBadgeId: 'RB-STAFF-01',
-          token: 'demo-token-mgr',
-        };
-        setCurrentManager(mgr);
-        setManagerToken('demo-token-mgr');
-        setUserRole('manager');
-        setIsManagerAuthModalOpen(false);
-        showToast('Manager Access Granted 🛡️', `Connected to ${mgr.hub}`);
-        return { success: true };
-      }
-      return { success: false, error: 'Invalid staff manager credentials.' };
+      return { success: false, error: 'Unable to reach the editor authentication service.' };
     }
   };
 
