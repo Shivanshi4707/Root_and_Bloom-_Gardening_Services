@@ -120,11 +120,41 @@ button, input, select, textarea {
 }
 
 .hero-panel { grid-column: span 12; display: flex; justify-content: space-between; align-items: center; }
+.hero-copy { margin: 10px 0 0; max-width: 520px; color: #536157; }
+.care-pulse { grid-column: span 12; display: grid; grid-template-columns: 1.2fr 1fr 1fr; align-items: center; gap: 20px; background: linear-gradient(110deg, #fffaf0, #f4fbf1); }
+.care-pulse h3 { margin: 6px 0 0; }
+.care-pulse p:not(.eyebrow) { margin: 6px 0 0; color: #5d6d5d; }
+.pulse-meter { display: flex; align-items: center; gap: 12px; }
+.pulse-track { height: 12px; flex: 1; overflow: hidden; border-radius: 999px; background: #e7eadf; }
+.pulse-track span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #e4ad3d, #4e9b54); }
+.pulse-meter strong { color: #286d32; font-size: 1.2rem; }
+.pulse-legend, .chart-legend { display: flex; flex-direction: column; gap: 8px; color: #5d6d5d; font-size: 0.8rem; }
+.pulse-legend span, .chart-legend span { display: flex; align-items: center; gap: 7px; }
+.pulse-legend i, .chart-legend i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.dot-green { background: #4e9b54; }
+.dot-gold { background: #e4ad3d; }
+.dot-blue { background: #4a87b8; }
+.dot-red { background: #c45d58; }
 .booking-panel { grid-column: span 5; }
 .shopping-panel { grid-column: span 7; }
 .list-panel { grid-column: span 6; }
 .kpi-panel { grid-column: span 12; }
 .manager-panel { grid-column: span 6; }
+
+.customer-promise {
+  grid-column: span 12;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid #dfeadf;
+  border-radius: 18px;
+  background: #dfeadf;
+}
+
+.customer-promise div { display: flex; flex-direction: column; gap: 6px; padding: 16px; background: #f7fbf5; }
+.customer-promise strong { color: #244428; }
+.customer-promise span { color: #5d6d5d; font-size: 0.9rem; }
 
 .booking-form {
   display: grid;
@@ -285,6 +315,23 @@ button, input, select, textarea {
 
 .list-item p, .list-item small { margin: 4px 0 0; color: #536157; }
 
+.booking-progress {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 12px;
+  max-width: 480px;
+}
+
+.booking-progress span {
+  border-top: 3px solid #dce5d8;
+  padding-top: 5px;
+  color: #879286;
+  font-size: 0.68rem;
+}
+
+.booking-progress span.complete { border-color: #4e9b54; color: #286d32; font-weight: 700; }
+
 .status-actions {
   display: flex;
   align-items: center;
@@ -322,6 +369,23 @@ button, input, select, textarea {
 .kpi-card span { color: #4c5c4f; display: block; }
 .kpi-card strong { font-size: 2rem; display: block; margin-top: 8px; }
 
+.analytics-panel { grid-column: span 12; }
+.section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; }
+.updated-label { color: #68786b; font-size: 0.8rem; }
+.analytics-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 14px; margin-top: 18px; }
+.chart-card { border: 1px solid #e1eadf; border-radius: 16px; padding: 16px; background: #fbfdf9; }
+.chart-card h4 { margin: 0; }
+.bar-chart { display: flex; align-items: flex-end; justify-content: space-around; gap: 10px; min-height: 160px; margin-top: 16px; padding-top: 12px; border-bottom: 1px solid #dce5d8; }
+.bar-item { display: flex; flex: 1; min-width: 48px; height: 145px; flex-direction: column; align-items: center; justify-content: flex-end; gap: 5px; text-align: center; }
+.bar-value { color: #244428; font-weight: 700; }
+.bar-track { display: flex; height: 100px; align-items: flex-end; }
+.bar-track span { width: 28px; min-height: 8px; border-radius: 8px 8px 2px 2px; background: linear-gradient(180deg, #72b878, #3d7a42); }
+.bar-item small { color: #68786b; font-size: 0.68rem; }
+.donut-wrap { display: flex; align-items: center; justify-content: space-around; gap: 18px; min-height: 160px; margin-top: 6px; }
+.donut { width: 116px; height: 116px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 50%; background: radial-gradient(circle at center, #fbfdf9 52%, transparent 54%), conic-gradient(#4e9b54 0 65%, #e4ad3d 65% 90%, #c45d58 90% 100%); }
+.donut strong { font-size: 1.6rem; color: #244428; }
+.donut small { color: #68786b; }
+
 .inventory-table { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
 
 .inventory-row {
@@ -358,7 +422,11 @@ button, input, select, textarea {
     align-items: flex-start;
   }
 
-  .booking-form, .add-product-form, .kpi-grid, .product-grid {
+  .booking-form, .add-product-form, .kpi-grid, .product-grid, .customer-promise, .analytics-grid {
     grid-template-columns: 1fr;
   }
+
+  .care-pulse { grid-template-columns: 1fr; }
+
+  .booking-progress { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
